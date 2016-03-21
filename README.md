@@ -4,7 +4,7 @@ Merge iPython notebooks. Uses the [`merge-ipynb`](https://github.com/crime-analy
 
 ## Usage
 
-For example, to append merge `p1.ipynb`, `p2.ipynb`, `p3.ipynb` and save the result in `merged.ipynb`
+For example, to merge the cells in `p1.ipynb`, `p2.ipynb`, `p3.ipynb` and save the result in `merged.ipynb`
 
 ```bash
 $ curl \
