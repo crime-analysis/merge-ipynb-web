@@ -31,6 +31,7 @@ func process(files []io.Reader, list []*multipart.FileHeader, ch chan error) {
 		}()
 	}
 
+	wg.Wait()
 	close(ch)
 }
 
