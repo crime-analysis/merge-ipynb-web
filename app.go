@@ -52,6 +52,8 @@ func process(files []io.Reader, list []*multipart.FileHeader, ch chan error) {
 // > -F "f=@hw3_p1.ipynb" \
 // > http://localhost:8080
 func app(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "text/plain; charset=utf-8")
+
 	// print instructions
 	if r.Method == "GET" || r.Method == "" {
 		fmt.Fprint(w, usageString)
@@ -74,6 +76,7 @@ func app(w http.ResponseWriter, r *http.Request) {
 				}
 			}
 
+			w.Header().Set("Content-Type", "application/json; charset=utf-8")
 			if err := merge.Merge(w, files...); err != nil {
 				http.Error(w, err.Error(), http.StatusInternalServerError)
 			}
