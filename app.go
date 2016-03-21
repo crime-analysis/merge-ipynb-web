@@ -1,6 +1,7 @@
 package merge
 
 import (
+	"fmt"
 	"io"
 	"mime/multipart"
 	"net/http"
@@ -9,7 +10,17 @@ import (
 	"github.com/crime-analysis/merge-ipynb"
 )
 
-const _24K = (1 << 20) * 24
+const (
+	_24K        = (1 << 20) * 24
+	usageString = `$ curl \
+> -F "f=@p1.ipynb" \
+> -F "f=@p2.ipynb" \
+> -F "f=@p3.ipynb" \
+> http://merge-ipynb.appspot.com
+
+# more: https://github.com/crime-analysis/merge-ipynb-web
+`
+)
 
 func init() {
 	http.HandleFunc("/", app)
@@ -41,6 +52,12 @@ func process(files []io.Reader, list []*multipart.FileHeader, ch chan error) {
 // > -F "f=@hw3_p1.ipynb" \
 // > http://localhost:8080
 func app(w http.ResponseWriter, r *http.Request) {
+	// print instructions
+	if r.Method == "GET" || r.Method == "" {
+		fmt.Fprint(w, usageString)
+		return
+	}
+
 	r.ParseMultipartForm(_24K)
 
 	for key, list := range r.MultipartForm.File {

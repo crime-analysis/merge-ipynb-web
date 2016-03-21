@@ -27,6 +27,12 @@ $ goapp serve .
 
 Now you can make requests to `http://localhost:8080`!
 
+## Deploy to App Engine
+
+```
+$ appcfg.py -A <APPLICATION_ID> -V v1 update .
+```
+
 ## License
 
 MIT.
